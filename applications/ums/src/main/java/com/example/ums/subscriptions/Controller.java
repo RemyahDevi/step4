@@ -1,6 +1,7 @@
 package com.example.ums.subscriptions;
 
 import com.example.billing.ChargeUser;
+import com.example.billing.Client;
 import com.example.email.SendEmail;
 import com.example.payments.RecurlyGateway;
 import com.example.subscriptions.CreateSubscription;
@@ -24,6 +25,13 @@ public class Controller {
     @Autowired
     SubscriptionRepository subscriptions;
 
+    private final Client billingClient;
+
+    @Autowired
+    public Controller(Client billingClient){
+        this.billingClient = billingClient;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Subscription> index() {
         return subscriptions.all();
@@ -32,10 +40,12 @@ public class Controller {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> create(@RequestBody Map<String, String> params) {
 
-        ChargeUser paymentCreator = new ChargeUser(new RecurlyGateway());
+        //ChargeUser paymentCreator = new ChargeUser(new RecurlyGateway());
+
+        System.out.println("Inside subscription post");
         SendEmail emailSender = new SendEmail();
 
-        new CreateSubscription(paymentCreator, emailSender, subscriptions)
+        new CreateSubscription(billingClient, emailSender, subscriptions)
                 .run(params.get("userId"), params.get("packageId"));
 
         return new ResponseEntity<>(HttpStatus.CREATED);
