@@ -16,3 +16,5 @@ logging:
   level:
     org:
       springframework: INFO
+
+queueName: billing-queue

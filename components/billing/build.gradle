@@ -10,4 +10,5 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web:1.4.2.RELEASE')
     compile("org.springframework.cloud:spring-cloud-starter-hystrix-dashboard:1.4.0.RELEASE")
     compile("com.netflix.hystrix:hystrix-javanica:1.5.11")
+    compile ("org.springframework.boot:spring-boot-starter-amqp:1.4.2.RELEASE")
 }

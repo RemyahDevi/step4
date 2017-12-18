@@ -1,13 +1,14 @@
 package com.example.billing;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.*;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 
-public interface Client {
 
-    public void billUser(String userId, int amount);
-
-}
-/*
-public class HttpClient {
+public class HttpClient implements Client{
 
     private final RestOperations restTemplate;
     Logger logger = LoggerFactory.getLogger(HttpClient.class);
@@ -33,12 +34,12 @@ public class HttpClient {
 
         //restTemplate.postForEntity("http://billing/reocurringPayment", amount, String.class);
     }
-
     public void myfallback(String userId, int amount) {
         logger.info("fallback" + userId);
         System.out.println("This is my fall back method");
 
     }
+
+
 }
 
-*/

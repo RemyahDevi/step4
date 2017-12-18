@@ -2,6 +2,7 @@ package com.example.ums.subscriptions;
 
 import com.example.billing.ChargeUser;
 import com.example.billing.Client;
+import com.example.billing.RabbitClient;
 import com.example.email.SendEmail;
 import com.example.payments.RecurlyGateway;
 import com.example.subscriptions.CreateSubscription;
@@ -27,10 +28,9 @@ public class Controller {
 
     private final Client billingClient;
 
-    @Autowired
-    public Controller(Client billingClient){
-        this.billingClient = billingClient;
-    }
+   public Controller(@Autowired Client client) {
+                this.billingClient = client;
+   }
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<Subscription> index() {
