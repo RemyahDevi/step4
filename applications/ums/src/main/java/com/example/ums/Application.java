@@ -31,7 +31,8 @@ public class Application implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
-    private final RabbitTemplate rabbitTemplate;
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     @Autowired
    NamedParameterJdbcTemplate datasource;
