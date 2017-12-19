@@ -26,10 +26,10 @@ public class Controller {
     @Autowired
     SubscriptionRepository subscriptions;
 
-    private final Client billingClient;
+    private final Client client;
 
    public Controller(@Autowired Client client) {
-                this.billingClient = client;
+                this.client = client;
    }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -45,7 +45,7 @@ public class Controller {
         System.out.println("Inside subscription post");
         SendEmail emailSender = new SendEmail();
 
-        new CreateSubscription(billingClient, emailSender, subscriptions)
+        new CreateSubscription(client, emailSender, subscriptions)
                 .run(params.get("userId"), params.get("packageId"));
 
         return new ResponseEntity<>(HttpStatus.CREATED);

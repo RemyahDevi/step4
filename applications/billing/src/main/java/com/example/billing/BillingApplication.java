@@ -17,8 +17,6 @@ public class BillingApplication {
 	@Value("${queueName}")
 	String queueName;
 
-
-
 	@Bean
 	BillingMessageReceiver receiver(Gateway paymentGateway) {
 				return new BillingMessageReceiver(paymentGateway);

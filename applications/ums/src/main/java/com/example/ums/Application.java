@@ -31,6 +31,8 @@ public class Application implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
+    private final RabbitTemplate rabbitTemplate;
+
     @Autowired
    NamedParameterJdbcTemplate datasource;
 
@@ -44,9 +46,13 @@ public class Application implements CommandLineRunner {
         return new RestTemplate();
     }
 
+    @Autowired
+    public Application(RabbitTemplate template) {
+        this.rabbitTemplate = template;
+    }
 
     @Bean
-    public Client billingClient(@Value("${queueName}") String queueName, @Autowired RabbitTemplate rabbitTemplate) {
+    public Client client(@Value("${queueName}") String queueName, RabbitTemplate rabbitTemplate) {
                 return new RabbitClient(queueName, rabbitTemplate);
             }
 
